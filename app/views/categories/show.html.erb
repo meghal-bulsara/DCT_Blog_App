@@ -1,0 +1,18 @@
+<h2><%= @category.name %></h2>
+
+<% if user_signed_in? && current_user.is_admin %>
+  <%= link_to "Edit", edit_category_path(@category.id) %>
+  <%= link_to "Destroy", category_path(@category.id), method: :delete, data: {confirm: "Are you sure?"} %>
+<% end %>
+<% if @articles.empty? %>
+    <p> No articles Found </p>
+<% else %>
+  <ol>
+    <% @articles.each do |article| %>
+      <li>
+          <%= link_to article.title, article_path(article.id) %>
+        </li>
+      <% end %>
+  </ol>
+<% end %>
+

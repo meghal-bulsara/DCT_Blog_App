@@ -1,0 +1,25 @@
+<h2>Add Article</h2>
+
+<%= form_for @article do |f| %>
+<!-- <label>Name : </label> -->
+<% if @article.errors.any? %>
+  <h3>Errors : </h3>
+  <ul>
+  <% @article.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+  </ul>
+<% end %>
+<%= f.label :title %><br/>
+<%= f.text_field :title %><br/>
+
+<%= f.label :body %><br/>
+<%= f.text_area :body %><br/>
+
+<%= f.label :category_id %><br/>
+<%= f.collection_select :category_id, Category.all, :id, :name, prompt: "Select Category" %><br/>
+<%= f.label :publish_date %><br/>
+<%= f.date_select :publish_date %><br/>
+
+<%= f.submit "Submit" %>
+<% end %>

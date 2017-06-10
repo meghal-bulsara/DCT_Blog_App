@@ -1,0 +1,30 @@
+<h2> Article</h2>
+Name::          <%= @article.title %><br/>
+Description:    <%= @article.body %><br/><br/>
+Publish Date    <%= @article.publish_date %><br/><br/>
+
+<% if user_signed_in? && current_user.is_admin %>
+  <%= link_to "Edit", edit_article_path(@article.id) %> |
+  <%= link_to "Delete", article_path(@article.id), method: :delete, data: {confirm: "Are you sure?"} %>|
+<% end %>
+
+<%= link_to "Back", articles_path  %>
+
+<h3>Comment</h3>
+
+<% @article.comments.each do |comment| %>
+  <h3>Title: <%= comment.title %></h3><br/><br/>
+  Body: <%= comment.body %>
+<% end %>
+
+<% @comments = @article.comments.new %>
+
+<%= form_for @comments do |f| %>
+<%= f.label :title %><br/>
+<%= f.text_field :title %><br/>
+<%= f.label :body %><br/>
+<%= f.text_area :body %><br/>
+<%= f.hidden_field :article_id, value: @article.id %>
+<%= f.submit %>
+<% end %>
+
